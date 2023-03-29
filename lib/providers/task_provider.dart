@@ -4,7 +4,7 @@ import 'package:to_do/models/task_model.dart';
 class TaskProvider with ChangeNotifier {
   final List<Task> _tasks = [];
 
-  List<Task> get task => _tasks;
+  List<Task> get tasks => _tasks;
 
 // Adding new task
   void addTask(Task task) {
@@ -13,14 +13,22 @@ class TaskProvider with ChangeNotifier {
   }
 
   //updating the extisting task
-  void updateTask(Task task) {
-    final index = _tasks.indexWhere((t) => t.id == task.id);
-    _tasks[index] = task;
+  void updateTask(Task tasks) {
+    final index = _tasks.indexWhere((t) => t.id == tasks.id);
+    _tasks[index] = tasks;
+    notifyListeners();
   }
 
   // Deleting the task
-  void deleteTask(Task task) {
-    _tasks.removeWhere((t) => t.id == task.id);
+  void deleteTask(Task tasks) {
+    _tasks.removeWhere((t) => t.id == tasks.id);
+    notifyListeners();
+  }
+
+  // Refreshing the task List
+  void refreshTask(List<Task> tasks) {
+    _tasks.clear();
+    _tasks.addAll(tasks);
     notifyListeners();
   }
 }
